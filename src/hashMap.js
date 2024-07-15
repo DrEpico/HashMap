@@ -1,5 +1,6 @@
 import { LinkedList, Node } from "./linkedList";
 
+//https://www.youtube.com/watch?v=H62Jfv1DJlU
 export class HashMap {
     constructor(initialCapacity = 8) {
         this.buckets = new Array(initialCapacity).fill(null).map(() => new LinkedList()); 
