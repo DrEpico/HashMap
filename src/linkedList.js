@@ -44,23 +44,23 @@ export class LinkedList {
         return i;
     }
 
-    head(){
-        if(this.head){
-            const headNode = this.head;
-            return headNode;
-        } else {
-            return null;
-        }
-    }
+    // head(){
+    //     if(this.head){
+    //         const headNode = this.head;
+    //         return headNode;
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
-    tail(){
-        if(this.tail){
-            const tailNode = this.tail;
-            return tailNode;
-        } else {
-            return null;
-        }
-    }
+    // tail(){
+    //     if(this.tail){
+    //         const tailNode = this.tail;
+    //         return tailNode;
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
     at(index){
         if (index < 0) return null; // Index should be non-negative

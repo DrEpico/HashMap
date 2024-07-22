@@ -2,8 +2,8 @@ import { LinkedList, Node } from "./linkedList";
 
 //https://www.youtube.com/watch?v=H62Jfv1DJlU
 export class HashMap {
-    constructor(initialCapacity = 8) {
-        this.buckets = new Array(initialCapacity).fill(null).map(() => new LinkedList()); 
+    constructor(capacity = 8) {
+        this.buckets = new Array(capacity).fill(null).map(() => new LinkedList()); 
         //map(() => new LinkedList() Transforms each null value into an empty linked list.
         this.size = 0;
         this.loadFactor = 0.75;
@@ -20,6 +20,16 @@ export class HashMap {
     }
 
     set(key, value){
-        
+        let hashCode = this.hash(key);
+        let bucket = this.buckets[hashCode];
+        if(bucket.head){
+            bucket.append({ key, value });
+        }
+
+        this.size++;
+        // Resize if load factor is exceeded
+        if (this.size / this.buckets.length > this.loadFactor) {
+            this.resize();
+        }
     }
 }
