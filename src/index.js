@@ -1,6 +1,10 @@
 import { LinkedList, Node } from "./linkedList";
 import { HashMap } from "./hashMap"
 
+const hashmap = new HashMap();
+
+console.log(hashmap.hash("Yorkshire"));
+
 //if (index < 0 || index >= buckets.length) {
 //     throw new Error("Trying to access index out of bound");
 // }
