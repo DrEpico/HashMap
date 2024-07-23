@@ -22,11 +22,20 @@ export class HashMap {
     set(key, value){
         let hashCode = this.hash(key);
         let bucket = this.buckets[hashCode];
-        if(bucket.head){
-            bucket.append({ key, value });
-        }
 
+        // Check if the key already exists in the bucket
+        let currentNode = bucket.head;
+        while (currentNode) {
+            if (currentNode.value.key === key) {
+                currentNode.value.value = value;
+                return;
+            }
+            currentNode = currentNode.next;
+        }
+        
+        bucket.append({ key, value });
         this.size++;
+
         // Resize if load factor is exceeded
         if (this.size / this.buckets.length > this.loadFactor) {
             this.resize();
@@ -37,10 +46,28 @@ export class HashMap {
         let hashCode = this.hash(key);
         let bucket = this.buckets[hashCode];
 
-        if(bucket.head){
-            return bucket.head.key;
-        } else {
-            return "Not found";
+        let currentNode = bucket.head;
+        while (currentNode) {
+            if (currentNode.value.key === key) {
+                return currentNode.value.value;
+            }
+            currentNode = currentNode.next;
         }
+
+        return "Not found";
+    }
+
+    has(key){
+        let hashCode = this.hash(key);
+        let bucket = this.buckets[hashCode];
+
+        let currentNode = bucket.head;
+        while (currentNode) {
+            if (currentNode.value.key === key) {
+                return true;
+            }
+            currentNode = currentNode.next;
+        }
+        return false;
     }
 }
