@@ -11,6 +11,7 @@ console.log(hashmap.hash("CENTER"));
 
 hashmap.set("Joe24235", "@mogus");
 console.log(hashmap.get("Joe24235"));
+console.log(hashmap.has("Joe24235"));
 
 
 //if (index < 0 || index >= buckets.length) {
