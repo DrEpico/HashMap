@@ -32,4 +32,15 @@ export class HashMap {
             this.resize();
         }
     }
+
+    get(key){
+        let hashCode = this.hash(key);
+        let bucket = this.buckets[hashCode];
+
+        if(bucket.head){
+            return bucket.head.key;
+        } else {
+            return "Not found";
+        }
+    }
 }

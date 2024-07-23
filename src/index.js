@@ -4,6 +4,14 @@ import { HashMap } from "./hashMap"
 const hashmap = new HashMap();
 
 console.log(hashmap.hash("Yorkshire"));
+console.log(hashmap.hash("Yorkshire"));
+console.log(hashmap.hash("Center"));
+console.log(hashmap.hash("center"));
+console.log(hashmap.hash("CENTER"));
+
+hashmap.set("Joe24235", "@mogus");
+console.log(hashmap.get("Joe24235"));
+
 
 //if (index < 0 || index >= buckets.length) {
 //     throw new Error("Trying to access index out of bound");
