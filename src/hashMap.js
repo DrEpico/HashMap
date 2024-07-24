@@ -129,4 +129,41 @@ export class HashMap {
         this.buckets = new Array(this.buckets.length).fill(null).map(() => new LinkedList());
         this.size = 0;
     }
+
+    keys(){
+        const keysArray = [];
+        for (let bucket of this.buckets){
+            let currentNode = bucket.head;
+            while(currentNode){
+                keysArray.push(currentNode.value.key);
+                currentNode = currentNode.next;
+            }
+        }
+        return keysArray;
+    }
+
+    values(){
+        const valuesArray = [];
+        for (let bucket of this.buckets){
+            let currentNode = bucket.head;
+            while(currentNode){
+                valuesArray.push(currentNode.value.value);
+                currentNode = currentNode.next;
+            }
+        }
+        return valuesArray;
+    }
+
+    entries() {
+        const entriesArray = [];
+        for (let bucket of this.buckets) {
+            let currentNode = bucket.head;
+            while (currentNode) {
+                const nodeArray = [currentNode.value.key, currentNode.value.value];
+                entriesArray.push(nodeArray);
+                currentNode = currentNode.next;
+            }
+        }
+        return entriesArray;
+    }
 }
