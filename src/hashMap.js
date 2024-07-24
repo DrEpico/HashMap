@@ -70,4 +70,32 @@ export class HashMap {
         }
         return false;
     }
+
+    remove(key) {
+        let hashCode = this.hash(key);
+        let bucket = this.buckets[hashCode];
+
+        let currentNode = bucket.head;
+        let previousNode = null;
+
+        while(currentNode) {
+            if(currentNode.value.key === key){
+                if(previousNode){
+                    previousNode.next = currentNode.next;
+                } else {
+                    bucket.head = currentNode.next;
+                }
+                // If the current node is the tail, update the tail reference
+                if(currentNode === bucket.tail){
+                    bucket.tail = previousNode;
+                }
+                
+                this.size--;
+                return currentNode.value.value;
+            }
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+        }
+        return null;
+    }
 }
