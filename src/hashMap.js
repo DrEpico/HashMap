@@ -21,7 +21,12 @@ export class HashMap {
 
     set(key, value){
         let hashCode = this.hash(key);
-        let bucket = this.buckets[hashCode];
+        let bucket;
+        if (hashCode < 0 || hashCode >= buckets.length) {
+            throw new Error("Trying to access index out of bound");
+        } else {
+            bucket = this.buckets[hashCode];
+        }
 
         // Check if the key already exists in the bucket
         let currentNode = bucket.head;
@@ -44,7 +49,12 @@ export class HashMap {
 
     get(key){
         let hashCode = this.hash(key);
-        let bucket = this.buckets[hashCode];
+        let bucket;
+        if (hashCode < 0 || hashCode >= buckets.length) {
+            throw new Error("Trying to access index out of bound");
+        } else {
+            bucket = this.buckets[hashCode];
+        }
 
         let currentNode = bucket.head;
         while (currentNode) {
@@ -59,7 +69,12 @@ export class HashMap {
 
     has(key){
         let hashCode = this.hash(key);
-        let bucket = this.buckets[hashCode];
+        let bucket;
+        if (hashCode < 0 || hashCode >= buckets.length) {
+            throw new Error("Trying to access index out of bound");
+        } else {
+            bucket = this.buckets[hashCode];
+        }
 
         let currentNode = bucket.head;
         while (currentNode) {
@@ -73,7 +88,12 @@ export class HashMap {
 
     remove(key) {
         let hashCode = this.hash(key);
-        let bucket = this.buckets[hashCode];
+        let bucket;
+        if (hashCode < 0 || hashCode >= buckets.length) {
+            throw new Error("Trying to access index out of bound");
+        } else {
+            bucket = this.buckets[hashCode];
+        }
 
         let currentNode = bucket.head;
         let previousNode = null;
@@ -81,6 +101,7 @@ export class HashMap {
         while(currentNode) {
             if(currentNode.value.key === key){
                 if(previousNode){
+                    //deletes current node by bypassing it
                     previousNode.next = currentNode.next;
                 } else {
                     bucket.head = currentNode.next;
@@ -97,5 +118,15 @@ export class HashMap {
             currentNode = currentNode.next;
         }
         return null;
+    }
+
+    //Returns the number of stored keys in the hash map
+    length(){
+        return this.size();
+    }
+
+    clear(){
+        this.buckets = new Array(this.buckets.length).fill(null).map(() => new LinkedList());
+        this.size = 0;
     }
 }
