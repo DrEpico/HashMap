@@ -22,7 +22,7 @@ export class HashMap {
     set(key, value){
         let hashCode = this.hash(key);
         let bucket;
-        if (hashCode < 0 || hashCode >= buckets.length) {
+        if (hashCode < 0 || hashCode >= this.buckets.length) {
             throw new Error("Trying to access index out of bound");
         } else {
             bucket = this.buckets[hashCode];
@@ -44,13 +44,14 @@ export class HashMap {
         // Resize if load factor is exceeded
         if (this.size / this.buckets.length > this.loadFactor) {
             this.resize();
+            console.log("resized hashmap")
         }
     }
 
     get(key){
         let hashCode = this.hash(key);
         let bucket;
-        if (hashCode < 0 || hashCode >= buckets.length) {
+        if (hashCode < 0 || hashCode >= this.buckets.length) {
             throw new Error("Trying to access index out of bound");
         } else {
             bucket = this.buckets[hashCode];
@@ -70,7 +71,7 @@ export class HashMap {
     has(key){
         let hashCode = this.hash(key);
         let bucket;
-        if (hashCode < 0 || hashCode >= buckets.length) {
+        if (hashCode < 0 || hashCode >= this.buckets.length) {
             throw new Error("Trying to access index out of bound");
         } else {
             bucket = this.buckets[hashCode];
@@ -89,7 +90,7 @@ export class HashMap {
     remove(key) {
         let hashCode = this.hash(key);
         let bucket;
-        if (hashCode < 0 || hashCode >= buckets.length) {
+        if (hashCode < 0 || hashCode >= this.buckets.length) {
             throw new Error("Trying to access index out of bound");
         } else {
             bucket = this.buckets[hashCode];
@@ -165,5 +166,21 @@ export class HashMap {
             }
         }
         return entriesArray;
+    }
+    
+    resize() {
+        const newCapacity = this.buckets.length * 2;
+        const newBuckets = new Array(newCapacity).fill(null).map(() => new LinkedList());
+
+        for (let bucket of this.buckets) {
+            let currentNode = bucket.head;
+            while (currentNode) {
+                const hashCode = this.hash(currentNode.value.key);
+                newBuckets[hashCode].append(currentNode.value);
+                currentNode = currentNode.next;
+            }
+        }
+
+        this.buckets = newBuckets;
     }
 }
